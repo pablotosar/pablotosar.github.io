@@ -1,0 +1,16 @@
+<header class="site-header" role="banner">
+  <div class="wrap">
+    <div class="header-inner">
+      <a href="/" class="site-logo" aria-label="{{ site.title }} — Inicio">
+        <span class="logo-dot" aria-hidden="true"></span>
+        {{ site.title }}
+      </a>
+      <nav class="site-nav" aria-label="Navegación principal">
+        <a href="/about/"   {% if page.url contains '/about/'   %}aria-current="page"{% endif %}>About</a>
+        <a href="/writing/" {% if page.url contains '/writing/' %}aria-current="page"{% endif %}>Writing</a>
+        <a href="/now/"     {% if page.url contains '/now/'     %}aria-current="page"{% endif %}>Now</a>
+        <a href="/contact/" {% if page.url contains '/contact/' %}aria-current="page"{% endif %}>Contact</a>
+      </nav>
+    </div>
+  </div>
+</header>

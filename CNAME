@@ -1,1 +1,56 @@
-pablotosar.com
+---
+layout: default
+title: Writing — Pablo Tosar
+description: >-
+  Reflexiones sobre tecnología, vida y aprendizaje. Escritos de Pablo Tosar.
+---
+
+<section class="writing-header" aria-label="Encabezado de Writing">
+  <div class="wrap">
+    <h1 class="page-title">Writing</h1>
+    <p class="page-subtitle">Reflexiones sobre tecnología, vida y aprendizaje.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="writing-body">
+
+    {% if site.posts.size == 0 %}
+    <!-- Estado vacío: diseñado, no placeholder -->
+    <div class="writing-empty-card">
+      <h3>Preparando los primeros textos.</h3>
+      <p>
+        Escribo sobre infraestructura IT, sistemas simples, naturaleza,
+        aprendizaje y lo que me va cambiando la perspectiva. Pronto habrá
+        algo aquí. Si quieres saber cuándo publique, puedes escribirme.
+      </p>
+      <div class="tag-row" aria-label="Temas previstos">
+        <span class="tag-pill">Tecnología</span>
+        <span class="tag-pill">Vida</span>
+        <span class="tag-pill">Aprendizaje</span>
+        <span class="tag-pill">Naturaleza</span>
+      </div>
+    </div>
+
+    {% else %}
+    <!-- Lista de posts -->
+    <nav class="writing-post-list" aria-label="Artículos publicados">
+      {% for post in site.posts %}
+      <a href="{{ post.url }}" class="writing-post-item">
+        <div>
+          {% if post.tag %}<p class="writing-post-tag">{{ post.tag }}</p>{% endif %}
+          <h2 class="writing-post-title">{{ post.title }}</h2>
+          {% if post.excerpt %}
+          <p class="writing-post-excerpt">{{ post.excerpt | strip_html | truncate: 130 }}</p>
+          {% endif %}
+        </div>
+        <time class="writing-post-meta" datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%-d %b %Y" }}
+        </time>
+      </a>
+      {% endfor %}
+    </nav>
+    {% endif %}
+
+  </div>
+</div>
