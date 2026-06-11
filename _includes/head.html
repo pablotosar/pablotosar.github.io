@@ -1,0 +1,25 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{% seo %}
+<link rel="canonical" href="{{ page.url | prepend: site.url }}">
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+<link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Writing" href="{{ '/feed.xml' | relative_url }}">
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Pablo Tosar",
+  "url": "https://pablotosar.com",
+  "email": "hola@pablotosar.com",
+  "jobTitle": "IT Infrastructure",
+  "description": "{{ site.description }}",
+  "sameAs": [
+    "https://es.linkedin.com/in/pablo-tosar-fragio/en",
+    "https://github.com/pablotosar"
+  ]
+}
+</script>
+{% endif %}
