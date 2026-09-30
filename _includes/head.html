@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+{% if page.csp %}<meta http-equiv="Content-Security-Policy" content="{{ page.csp }}">{% endif %}
 {% seo %}
 <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
