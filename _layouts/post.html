@@ -11,9 +11,10 @@ layout: default
       <div class="post-meta-row">
         {% if page.tag %}<span class="post-tag">{{ page.tag }}</span>{% endif %}
         <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
-          {{ page.date | date: "%-d %b %Y" }}
+          {% include fecha.html date=page.date %}
         </time>
-        {% if page.reading_time %}<span class="post-date">· {{ page.reading_time }} min lectura</span>{% endif %}
+        {%- assign minutos = content | number_of_words | divided_by: 200 | at_least: 1 %}
+        <span class="post-date">· {{ page.reading_time | default: minutos }} min de lectura</span>
       </div>
       <h1 class="post-title">{{ page.title }}</h1>
     </div>
@@ -21,7 +22,8 @@ layout: default
 
   <div class="wrap">
     <div class="post-body">
-      {{ content }}
+      {%- comment -%} Las tablas se envuelven en una región desplazable y enfocable para móvil. {%- endcomment -%}
+      {{ content | replace: "<table>", '<div class="table-wrap" role="region" aria-label="Tabla (desplazable)" tabindex="0"><table>' | replace: "</table>", "</table></div>" }}
     </div>
 
     <nav class="post-nav" aria-label="Artículos relacionados">

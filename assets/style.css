@@ -529,6 +529,15 @@ main { flex: 1; }
   margin: 1.4em 0; box-shadow: var(--shadow-sm);
 }
 .post-body hr { border: none; border-top: 1px solid var(--stroke); margin: 2em 0; }
+/* Tablas: región desplazable en móvil (el layout envuelve cada <table>) */
+.post-body .table-wrap { overflow-x: auto; margin: 0 0 1.6em; border: 1px solid var(--stroke); border-radius: 10px; background: white; }
+.post-body .table-wrap:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.post-body table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.post-body th, .post-body td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--stroke); color: var(--ink-2); }
+.post-body th { font-size: 13px; font-weight: 700; color: var(--ink); background: var(--bg-alt); white-space: nowrap; }
+.post-body tr:last-child td { border-bottom: none; }
+/* Fuentes: lo que va tras la última línea horizontal */
+.post-body hr ~ p { font-size: 14px; line-height: 1.7; color: var(--muted); }
 
 /* Post navigation */
 .post-nav {

@@ -100,7 +100,7 @@ description: >-
         {% if post.excerpt %}
         <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
         {% endif %}
-        <p class="post-card-meta">{{ post.date | date: "%-d %b %Y" }}</p>
+        <p class="post-card-meta">{% include fecha.html date=post.date %}</p>
       </a>
       {% endfor %}
     </div>

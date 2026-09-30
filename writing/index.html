@@ -45,7 +45,7 @@ description: >-
           {% endif %}
         </div>
         <time class="writing-post-meta" datetime="{{ post.date | date_to_xmlschema }}">
-          {{ post.date | date: "%-d %b %Y" }}
+          {% include fecha.html date=post.date %}
         </time>
       </a>
       {% endfor %}
