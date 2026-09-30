@@ -1,0 +1,74 @@
+// Comprobaciones de todas las páginas del sitemap: carga limpia, estructura
+// básica, accesibilidad (axe, WCAG 2.2 AA) y ausencia de scroll horizontal.
+// Las páginas nuevas (posts incluidos) quedan cubiertas automáticamente.
+const { test, expect } = require('@playwright/test');
+const { default: AxeBuilder } = require('@axe-core/playwright');
+
+const WCAG_TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa'];
+
+async function sitemapPaths(request) {
+  const res = await request.get('/sitemap.xml');
+  expect(res.ok(), 'sitemap.xml debe existir').toBeTruthy();
+  const xml = await res.text();
+  const paths = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => new URL(m[1]).pathname);
+  expect(paths.length, 'el sitemap no puede estar vacío').toBeGreaterThan(0);
+  return paths;
+}
+
+function formatViolations(violations) {
+  return violations
+    .map((v) => `${v.id} (${v.impact}): ${v.help}\n  ${v.nodes.map((n) => n.target.join(' ')).join('\n  ')}`)
+    .join('\n');
+}
+
+test('todas las páginas del sitemap cargan sin errores y son accesibles', async ({ page, request, baseURL }) => {
+  const origin = new URL(baseURL).origin;
+
+  for (const path of await sitemapPaths(request)) {
+    await test.step(path, async () => {
+      const problems = [];
+      page.removeAllListeners();
+      page.on('console', (msg) => msg.type() === 'error' && problems.push(`console: ${msg.text()}`));
+      page.on('response', (res) => {
+        if (res.url().startsWith(origin) && res.status() >= 400) problems.push(`${res.status()} ${res.url()}`);
+      });
+
+      const response = await page.goto(path, { waitUntil: 'networkidle' });
+      expect(response.status(), `${path} status`).toBe(200);
+
+      await expect(page.locator('html')).toHaveAttribute('lang', /.+/);
+      await expect.soft(page.locator('h1'), `${path} debe tener un único h1`).toHaveCount(1);
+      await expect.soft(page.locator('link[rel="canonical"]'), `${path} canonical`).toHaveCount(1);
+
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
+      expect.soft(overflow, `${path} no debe tener scroll horizontal`).toBeLessThanOrEqual(1);
+
+      const { violations } = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+      expect.soft(violations, formatViolations(violations)).toEqual([]);
+
+      expect.soft(problems, problems.join('\n')).toEqual([]);
+    });
+  }
+});
+
+test('el primer tabulador lleva al enlace "Saltar al contenido"', async ({ page, isMobile }) => {
+  test.skip(isMobile, 'navegación por teclado solo en escritorio');
+  await page.goto('/');
+  await page.keyboard.press('Tab');
+  await expect(page.locator(':focus')).toHaveAttribute('href', '#main');
+});
+
+test('recursos declarados en <head> existen', async ({ page, request }) => {
+  await page.goto('/');
+  const hrefs = await page.locator('head link[href^="/"]').evaluateAll((els) => els.map((e) => e.getAttribute('href')));
+  for (const href of hrefs) {
+    const res = await request.get(href);
+    expect(res.status(), href).toBe(200);
+  }
+});
+
+test('el feed RSS/Atom es válido', async ({ request }) => {
+  const res = await request.get('/feed.xml');
+  expect(res.ok()).toBeTruthy();
+  expect(await res.text()).toMatch(/<feed[\s>]/);
+});

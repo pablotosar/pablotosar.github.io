@@ -1,0 +1,33 @@
+# Revisión semanal de enlaces externos (lunes 06:17 UTC). Si falla, GitHub
+# notifica al propietario del repo. No bloquea PRs: los enlaces externos cambian
+# sin que cambie el código.
+name: Enlaces externos
+
+on:
+  schedule:
+    - cron: "17 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  external-links:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: ruby/setup-ruby@14594264cd68ce8a2345dd349bc3d138a4ef85c8 # v1.327.0
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      # LinkedIn responde 999 a clientes automáticos; 429 = rate limit transitorio.
+      - run: bundle exec htmlproofer _site --ignore-status-codes "999,429" --enforce-https

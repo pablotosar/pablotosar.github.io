@@ -70,3 +70,11 @@ exclude:
   - README.md
   - .gitignore
   - vendor/
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - playwright.config.js
+  - tests/
+  - test-results/
+  - playwright-report/
+  - docs/

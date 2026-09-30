@@ -1,0 +1,36 @@
+# Actualizaciones semanales agrupadas: un PR por ecosistema como máximo.
+# Cada PR pasa por la CI antes de poder fusionarse.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Madrid
+    groups:
+      actions:
+        patterns: ["*"]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Madrid
+    groups:
+      test-tooling:
+        patterns: ["*"]
+    open-pull-requests-limit: 1
+
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      timezone: Europe/Madrid
+    groups:
+      gems:
+        patterns: ["*"]
+    open-pull-requests-limit: 1
