@@ -1,0 +1,45 @@
+# Impide que un PR de la rutina autónoma (ramas claude/*) modifique la
+# configuración que la controla: CI, pruebas, dependencias y ajustes del sitio.
+# Pablo puede autorizarlo añadiendo la etiqueta «aprobado-pablo».
+#
+# pull_request_target ejecuta la versión de este archivo que hay en main, así
+# que un PR no puede desactivar su propio control. No hace checkout ni ejecuta
+# código del PR: solo lee la lista de archivos por API.
+name: politica
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  politica:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Rutas protegidas en PRs de la rutina
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          LABELS: ${{ toJSON(github.event.pull_request.labels.*.name) }}
+        run: |
+          case "$HEAD_REF" in
+            claude/*) ;;
+            *) echo "No es un PR de la rutina: sin restricciones."; exit 0 ;;
+          esac
+          if printf '%s' "$LABELS" | grep -q '"aprobado-pablo"'; then
+            echo "Autorizado con la etiqueta aprobado-pablo."; exit 0
+          fi
+          files=$(gh api --paginate "repos/$REPO/pulls/$PR/files" --jq '.[].filename')
+          protected=$(printf '%s\n' "$files" | grep -E '^(\.github/|tests/|playwright\.config\.js$|package(-lock)?\.json$|Gemfile|_config\.yml$|CNAME$|robots\.txt$)' || true)
+          if [ -n "$protected" ]; then
+            echo "::error::El PR de la rutina modifica rutas protegidas (requiere etiqueta aprobado-pablo):"
+            printf '%s\n' "$protected"
+            exit 1
+          fi
+          echo "Sin rutas protegidas."
