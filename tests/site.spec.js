@@ -83,3 +83,46 @@ test('plantilla de artículo: fecha en español, tiempo de lectura y tabla acces
   await expect(wrap).toHaveAttribute('tabindex', '0');
   await expect(page.locator('h1')).toHaveCount(1);
 });
+
+test.describe('calculadora ¿compensa automatizarlo?', () => {
+  const casos = [
+    // Casos de P-001: veces, minutos, horas, mant/mes, años → neto, equilibrio
+    { datos: [52, 18, 6, 15, 2], neto: '+19,2 h', equilibrio: /Unos 5,7 meses/ },
+    { datos: [12, 30, 8, 10, 2], neto: '0 h', equilibrio: /Unos 2 años/ },
+    { datos: [365, 5, 10, 30, 1], neto: '+14,4 h', equilibrio: /Unos 4,9 meses/ },
+    { datos: [12, 10, 4, 10, 2], neto: '-4 h', equilibrio: /Nunca/ },
+  ];
+  const ids = ['veces', 'minutos', 'construir', 'mantenimiento', 'horizonte'];
+
+  for (const { datos, neto, equilibrio } of casos) {
+    test(`calcula ${datos.join('/')}`, async ({ page }) => {
+      await page.goto('/herramientas/automatizar/');
+      for (const [i, id] of ids.entries()) await page.fill(`#${id}`, String(datos[i]));
+      await expect(page.locator('[data-resultado="neto"]')).toHaveText(neto);
+      await expect(page.locator('[data-resultado="equilibrio"]')).toHaveText(equilibrio);
+    });
+  }
+
+  test('datos inválidos muestran un aviso en lugar de un resultado', async ({ page }) => {
+    await page.goto('/herramientas/automatizar/');
+    await page.fill('#horizonte', '0');
+    await expect(page.locator('[data-mensaje]')).toContainText('Revisa los datos');
+    await expect(page.locator('[data-resultado="neto"]')).toHaveText('—');
+  });
+
+  test('no hace peticiones de red al calcular', async ({ page }) => {
+    await page.goto('/herramientas/automatizar/');
+    const peticiones = [];
+    page.on('request', (r) => peticiones.push(r.url()));
+    await page.fill('#veces', '100');
+    await page.waitForTimeout(300);
+    expect(peticiones).toEqual([]);
+  });
+});
+
+test('la calculadora declara su CSP y tiene estilos propios', async ({ page }) => {
+  await page.goto('/herramientas/automatizar/');
+  await expect(page.locator('meta[http-equiv="Content-Security-Policy"]')).toHaveAttribute('content', /script-src 'self'/);
+  const fondo = await page.locator('.tool-resultado').evaluate((el) => getComputedStyle(el).backgroundColor);
+  expect(fondo, 'el bloque de resultado debe tener fondo (estilos cargados)').not.toBe('rgba(0, 0, 0, 0)');
+});
