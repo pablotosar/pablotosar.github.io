@@ -679,3 +679,19 @@ main { flex: 1; }
 .tool-resultado[data-estado="no-compensa"] .tool-neto dd { color: var(--amber); }
 .tool-mensaje { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin: 0; }
 .tool-nota { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+
+/* ── Auditoría UX con UI Pro Max (2026-10-01): táctil ≥44 px, 375 px, foco, movimiento ── */
+.skip-link:focus { outline: 3px solid var(--teal); outline-offset: 2px; }
+.site-nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.icon-btn { width: 44px; height: 44px; }
+.footer-legal a, .section-link { display: inline-flex; align-items: center; min-height: 44px; }
+@media (max-width: 420px) {
+  .site-header { position: static; height: auto; padding: 10px 0 4px; }
+  .header-inner { flex-wrap: wrap; justify-content: center; row-gap: 2px; }
+  .site-nav { width: 100%; justify-content: space-between; }
+  .site-nav a { padding: 0 8px; font-size: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
+}
