@@ -659,3 +659,23 @@ main { flex: 1; }
   .site-logo { font-size: 15px; }
   .site-nav a { padding: 6px 7px; font-size: 14px; white-space: nowrap; }
 }
+
+
+/* ── Herramientas (calculadoras locales) ─────────────── */
+[hidden] { display: none !important; }
+.tool { max-width: 640px; padding: 8px 0 72px; }
+.tool-form fieldset { border: 1px solid var(--stroke); border-radius: 12px; padding: 20px 22px 6px; margin: 0 0 18px; background: white; }
+.tool-form legend { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-2); padding: 0 6px; }
+.tool-campo { margin-bottom: 18px; }
+.tool-campo label { display: block; font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 6px; }
+.tool-campo input { width: 100%; max-width: 180px; font: inherit; font-size: 17px; padding: 10px 12px; border: 1px solid var(--ink-2); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.tool-campo input:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+.tool-ayuda { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+.tool-resultado { border-radius: 12px; padding: 22px; margin: 8px 0 24px; background: var(--bg-alt); border: 1px solid var(--stroke); }
+.tool-resultado dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px 24px; margin: 0 0 12px; }
+.tool-resultado dt { font-size: 13px; color: var(--muted); }
+.tool-resultado dd { margin: 2px 0 0; font-size: 20px; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.tool-resultado[data-estado="compensa"] .tool-neto dd { color: var(--teal); }
+.tool-resultado[data-estado="no-compensa"] .tool-neto dd { color: var(--amber); }
+.tool-mensaje { font-size: 15px; color: var(--ink-2); line-height: 1.6; margin: 0; }
+.tool-nota { font-size: 14px; color: var(--muted); line-height: 1.6; }
