@@ -34,8 +34,10 @@ jobs:
           ruby-version: "3.3"
           bundler-cache: true
 
+      # --drafts: incluye _drafts/post-template.md para probar la plantilla de
+      # artículo. Producción (GitHub Pages) nunca publica _drafts.
       - name: Build (Jekyll, versiones de GitHub Pages)
-        run: bundle exec jekyll build
+        run: bundle exec jekyll build --drafts
         env:
           JEKYLL_ENV: production
 

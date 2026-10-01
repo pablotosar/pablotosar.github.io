@@ -4,7 +4,6 @@ title: "Título del artículo"
 date: 2026-06-12
 tag: Tecnología
 excerpt: "Breve descripción del artículo que aparece en la lista y en el SEO."
-reading_time: 5
 image: /assets/images/pablo-1024.webp
 ---
 
@@ -26,6 +25,17 @@ Más contenido.
 - Otro elemento
 - Y otro más
 
+## Una tabla
+
+| Caso | Antes | Después | Diferencia |
+|---|---|---|---|
+| A | 20 min | 2 min | 18 min |
+| B | 30 min | 30 min | 0 min |
+
 ## Conclusión
 
 Cierra con algo que valga la pena recordar.
+
+---
+
+*Fuentes: Autor, A. (2020). «Título de la fuente». Revista, 1(1), 1–10.*

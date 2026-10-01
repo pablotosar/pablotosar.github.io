@@ -1,0 +1,4 @@
+{%- comment -%} Fecha en español: {% include fecha.html date=page.date %} → «1 de octubre de 2026» {%- endcomment -%}
+{%- assign meses = "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre" | split: "," -%}
+{%- assign indice = include.date | date: "%-m" | minus: 1 -%}
+{{ include.date | date: "%-d" }} de {{ meses[indice] }} de {{ include.date | date: "%Y" }}
