@@ -126,3 +126,12 @@ test('la calculadora declara su CSP y tiene estilos propios', async ({ page }) =
   const fondo = await page.locator('.tool-resultado').evaluate((el) => getComputedStyle(el).backgroundColor);
   expect(fondo, 'el bloque de resultado debe tener fondo (estilos cargados)').not.toBe('rgba(0, 0, 0, 0)');
 });
+
+test('zonas táctiles de navegación y footer de al menos 44 px', async ({ page }) => {
+  await page.goto('/');
+  for (const sel of ['.site-nav a', '.footer-legal a', '.icon-btn']) {
+    for (const box of await page.locator(sel).evaluateAll((els) => els.map((e) => e.getBoundingClientRect().height))) {
+      expect(box, `${sel} debe medir ≥44 px de alto`).toBeGreaterThanOrEqual(44);
+    }
+  }
+});
