@@ -12,10 +12,10 @@
   --ink-2:     #44403C;
   --muted:     #6B6460; /* AA: ≥4.5:1 sobre todos los fondos (antes #78716C) */
   --stroke:    rgba(28,25,23,.09);
-  --teal:      #247B67; /* AA: ≥4.5:1 sobre --bg, --bg-alt y blanco (antes #2D9B82) */
-  --teal-lt:   rgba(36,123,103,.10);
-  --teal-mid:  rgba(36,123,103,.22);
-  --amber:     #B45309;
+  --teal:      #227562; /* AA: ≥4.6:1 sobre fondos y tintes teal (antes #2D9B82) */
+  --teal-lt:   rgba(34,117,98,.10);
+  --teal-mid:  rgba(34,117,98,.22);
+  --amber:     #A34B08; /* AA sobre --bg-alt (antes #B45309) */
   --amber-lt:  rgba(180,83,9,.08);
   --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
   --shadow:    0 4px 16px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
@@ -149,8 +149,8 @@ main { flex: 1; }
   animation: pulse 2.8s ease-in-out infinite;
 }
 @keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(36,123,103,.4); }
-  50%       { opacity: .6; box-shadow: 0 0 0 4px rgba(36,123,103,0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,117,98,.4); }
+  50%       { opacity: .6; box-shadow: 0 0 0 4px rgba(34,117,98,0); }
 }
 .hero-name {
   font-size: clamp(36px, 5.5vw, 58px);
@@ -529,6 +529,15 @@ main { flex: 1; }
   margin: 1.4em 0; box-shadow: var(--shadow-sm);
 }
 .post-body hr { border: none; border-top: 1px solid var(--stroke); margin: 2em 0; }
+/* Tablas: región desplazable en móvil (el layout envuelve cada <table>) */
+.post-body .table-wrap { overflow-x: auto; margin: 0 0 1.6em; border: 1px solid var(--stroke); border-radius: 10px; background: white; }
+.post-body .table-wrap:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+.post-body table { width: 100%; border-collapse: collapse; font-size: 15px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.post-body th, .post-body td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--stroke); color: var(--ink-2); }
+.post-body th { font-size: 13px; font-weight: 700; color: var(--ink); background: var(--bg-alt); white-space: nowrap; }
+.post-body tr:last-child td { border-bottom: none; }
+/* Fuentes: lo que va tras la última línea horizontal */
+.post-body hr ~ p { font-size: 14px; line-height: 1.7; color: var(--muted); }
 
 /* Post navigation */
 .post-nav {

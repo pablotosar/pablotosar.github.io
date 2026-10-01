@@ -72,3 +72,14 @@ test('el feed RSS/Atom es válido', async ({ request }) => {
   expect(res.ok()).toBeTruthy();
   expect(await res.text()).toMatch(/<feed[\s>]/);
 });
+
+test('plantilla de artículo: fecha en español, tiempo de lectura y tabla accesible', async ({ page }) => {
+  const res = await page.goto('/writing/post-template/');
+  test.skip(res.status() === 404, 'la plantilla solo existe en builds con --drafts (CI)');
+  await expect(page.locator('.post-date').first()).toHaveText(/\d{1,2} de [a-z]+ de \d{4}/);
+  await expect(page.locator('.post-meta-row')).toContainText('min de lectura');
+  const wrap = page.locator('.post-body .table-wrap');
+  await expect(wrap).toHaveCount(1);
+  await expect(wrap).toHaveAttribute('tabindex', '0');
+  await expect(page.locator('h1')).toHaveCount(1);
+});
