@@ -99,17 +99,6 @@ description: >-
   </div>
 </section>
 {% endif %}
-        <h3 class="post-card-title">{{ post.title }}</h3>
-        {% if post.excerpt %}
-        <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
-        {% endif %}
-        <p class="post-card-meta">{% include fecha.html date=post.date %}</p>
-      </a>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
 
 <!-- ══ CONTACTO CTA ══════════════════════════════════ -->
 <section class="home-section" aria-label="Contacto">
