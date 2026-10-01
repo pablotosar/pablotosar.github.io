@@ -24,7 +24,7 @@ description: >-
         </p>
         <div class="hero-ctas">
           <a href="/about/" class="btn btn-primary">Sobre mí</a>
-          <a href="/writing/" class="btn btn-ghost">Writing</a>
+          <a href="/writing/" class="btn btn-ghost">Escritos</a>
           <a href="/now/" class="btn btn-ghost">Qué hago ahora</a>
         </div>
       </div>
@@ -44,18 +44,17 @@ description: >-
   </div>
 </section>
 
-<!-- ══ INTERESES ══════════════════════════════════════ -->
-<section class="interests-bar" aria-label="Áreas de interés">
+<!-- ══ TEMAS ═════════════════════════════════════════ -->
+<section class="temas" aria-labelledby="temas-titulo">
   <div class="wrap">
-    <p class="section-label">Intereses</p>
-    <ul class="interest-pills" role="list">
-      <li class="pill">🌊 Naturaleza</li>
-      <li class="pill">💻 Infraestructura IT</li>
-      <li class="pill">📚 Lecturas</li>
-      <li class="pill">🤿 Buceo</li>
-      <li class="pill">🏀 Baloncesto</li>
-      <li class="pill">🎵 Música</li>
-      <li class="pill">🌿 Plantas</li>
+    <h2 id="temas-titulo" class="section-label">De qué escribo</h2>
+    <ul class="temas-lista" role="list">
+      <li><strong>Criterio y decisiones</strong><span>Elegir, priorizar y dejar cosas para después.</span></li>
+      <li><strong>Cuerpo y entrenamiento</strong><span>Moverse para vivir mejor, con descanso y sin examen.</span></li>
+      <li><strong>Personas y vínculos</strong><span>Autonomía que no es hacerlo todo solo.</span></li>
+      <li><strong>Valores</strong><span>Integridad en decisiones pequeñas.</span></li>
+      <li><strong>Autonomía económica</strong><span>Entender antes de decidir; sin recomendaciones de inversión.</span></li>
+      <li><strong>Tecnología útil</strong><span>Automatizar cuando libera tiempo, no cuando añade obligaciones.</span></li>
     </ul>
   </div>
 </section>
@@ -84,18 +83,22 @@ description: >-
   </div>
 </section>
 
-<!-- ══ WRITING TEASER (solo si hay posts) ════════════ -->
+<!-- ══ ESCRITOS RECIENTES (solo si hay posts) ════════ -->
 {% if site.posts.size > 0 %}
-<section class="home-section" aria-label="Últimos escritos">
+<section class="recientes" aria-labelledby="recientes-titulo">
   <div class="wrap">
     <div class="section-header">
-      <h2>Writing</h2>
-      <a href="/writing/" class="section-link">Ver todo →</a>
+      <h2 id="recientes-titulo" class="section-label">Escritos recientes</h2>
+      <a href="/writing/" class="section-link">Ver todos →</a>
     </div>
-    <div class="post-grid">
-      {% for post in site.posts limit:2 %}
-      <a href="{{ post.url }}" class="post-card">
-        {% if post.tag %}<span class="post-card-tag">{{ post.tag }}</span>{% endif %}
+    <ol role="list">
+      {% for post in site.posts limit:3 %}
+      <li><a href="{{ post.url }}">{{ post.title }}</a><time datetime="{{ post.date | date_to_xmlschema }}">{% include fecha.html date=post.date %}</time></li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endif %}
         <h3 class="post-card-title">{{ post.title }}</h3>
         {% if post.excerpt %}
         <p class="post-card-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
