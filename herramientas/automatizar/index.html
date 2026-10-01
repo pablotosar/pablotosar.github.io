@@ -1,0 +1,78 @@
+---
+layout: default
+title: ¿Compensa automatizarlo? — Calculadora
+description: >-
+  Calcula si automatizar una tarea te ahorra tiempo de verdad, incluido el
+  mantenimiento. Funciona en tu navegador: no guarda ni envía nada.
+csp: "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'"
+---
+
+<section class="page-hero" aria-label="Encabezado">
+  <div class="wrap">
+    <h1 class="page-title">¿Compensa automatizarlo?</h1>
+    <p class="page-subtitle">
+      Una cuenta sencilla que incluye lo que se suele olvidar: el mantenimiento.
+      Todo se calcula en tu navegador; no se guarda ni se envía nada.
+    </p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="tool">
+    <p id="sin-js" class="tool-nota">
+      Esta calculadora necesita JavaScript. La fórmula es:
+      tiempo neto = ahorro − (construcción + mantenimiento).
+    </p>
+
+    <form id="calculadora" class="tool-form" hidden novalidate>
+      <fieldset>
+        <legend>La tarea</legend>
+        <div class="tool-campo">
+          <label for="veces">¿Cuántas veces al año la haces?</label>
+          <input id="veces" name="veces" type="number" inputmode="decimal" min="0" step="1" value="52" aria-describedby="veces-ayuda">
+          <p id="veces-ayuda" class="tool-ayuda">Semanal ≈ 52 · diaria laborable ≈ 220 · mensual = 12</p>
+        </div>
+        <div class="tool-campo">
+          <label for="minutos">Minutos que dejas de dedicar cada vez</label>
+          <input id="minutos" name="minutos" type="number" inputmode="decimal" min="0" step="1" value="18" aria-describedby="minutos-ayuda">
+          <p id="minutos-ayuda" class="tool-ayuda">Solo lo que de verdad desaparece: si sigues revisando el resultado, réstalo.</p>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>La automatización</legend>
+        <div class="tool-campo">
+          <label for="construir">Horas para montarla</label>
+          <input id="construir" name="construir" type="number" inputmode="decimal" min="0" step="0.5" value="6" aria-describedby="construir-ayuda">
+          <p id="construir-ayuda" class="tool-ayuda">Incluye aprender la herramienta y probarla.</p>
+        </div>
+        <div class="tool-campo">
+          <label for="mantenimiento">Minutos de mantenimiento al mes</label>
+          <input id="mantenimiento" name="mantenimiento" type="number" inputmode="decimal" min="0" step="1" value="15" aria-describedby="mantenimiento-ayuda">
+          <p id="mantenimiento-ayuda" class="tool-ayuda">Arreglos, actualizaciones y comprobar que sigue funcionando.</p>
+        </div>
+        <div class="tool-campo">
+          <label for="horizonte">¿Durante cuántos años seguirá igual la tarea?</label>
+          <input id="horizonte" name="horizonte" type="number" inputmode="decimal" min="0" step="0.5" value="2">
+        </div>
+      </fieldset>
+    </form>
+
+    <section id="resultado" class="tool-resultado" hidden aria-live="polite" aria-label="Resultado">
+      <dl>
+        <div><dt>Tiempo ahorrado</dt><dd data-resultado="ahorro">—</dd></div>
+        <div><dt>Tiempo invertido</dt><dd data-resultado="coste">—</dd></div>
+        <div class="tool-neto"><dt>Balance</dt><dd data-resultado="neto">—</dd></div>
+        <div><dt>Recuperas la inversión en</dt><dd data-resultado="equilibrio">—</dd></div>
+      </dl>
+      <p data-mensaje class="tool-mensaje"></p>
+    </section>
+
+    <p class="tool-nota">
+      Los valores iniciales son un ejemplo ilustrativo. La cuenta no ve costes difíciles de medir:
+      quién vigila que funcione, qué pasa si solo tú sabes arreglarlo o si disfrutas haciendo la tarea a mano.
+    </p>
+  </div>
+</div>
+
+<script src="{{ '/assets/js/automatizar.js' | relative_url }}" defer></script>
