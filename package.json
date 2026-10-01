@@ -1,0 +1,16 @@
+{
+  "name": "pablotosar-site-checks",
+  "private": true,
+  "description": "Herramientas de verificación (solo CI/local). No se publican con la web.",
+  "scripts": {
+    "test": "playwright test",
+    "test:prod": "BASE_URL=https://pablotosar.com playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.63.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
