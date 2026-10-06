@@ -1,0 +1,17 @@
+{%- comment -%} Pieza de contacto. Parámetros: id, h (h2/h3), titulo, texto (opcional), copiar (true/false). {%- endcomment -%}
+<section class="tile t-contacto on-dark{% if include.clase %} {{ include.clase }}{% endif %}" aria-labelledby="{{ include.id }}">
+  <div>
+    <p class="kicker">Contacto</p>
+    <{{ include.h }} id="{{ include.id }}">{{ include.titulo }}</{{ include.h }}>
+    {% if include.texto %}<p>{{ include.texto }}</p>{% endif %}
+  </div>
+  <a class="mail" href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
+  <div>
+    <div class="row-actions">
+      {% if include.copiar %}<button class="chip primary" type="button" data-copy="{{ site.author.email }}">Copiar correo</button>{% endif %}
+      <a class="chip" href="https://es.linkedin.com/in/pablo-tosar-fragio/en" rel="me noopener" target="_blank">LinkedIn<span class="vh"> (se abre en otra pestaña)</span></a>
+      <a class="chip" href="https://github.com/pablotosar" rel="me noopener" target="_blank">GitHub<span class="vh"> (se abre en otra pestaña)</span></a>
+    </div>
+    {% if include.copiar %}<p class="status" role="status" id="copy-status"></p>{% endif %}
+  </div>
+</section>

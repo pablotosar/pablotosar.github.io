@@ -1,0 +1,82 @@
+# Panel «Ahora». Se edita aquí, sin tocar HTML: lo usan la portada (pieza «Este mes») y /now/.
+#
+# Para actualizarlo:
+#   1. Cambia «actualizado» por la fecha de hoy (AAAA-MM-DD).
+#   2. Edita las filas: titulo, linea (opcional) y estado (la palabra que se ve).
+#   3. Commit y PR, como siempre.
+#
+# forma: el dibujo que acompaña al estado (nunca se distingue solo por color).
+#   curso   = punto relleno (algo en marcha)
+#   semanal = anillo (algo habitual)
+#   mar     = medio lleno (depende de algo externo)
+#   fondo   = anillo discontinuo (en segundo plano)
+# portada: true → la fila también sale en la portada, en este mismo orden.
+# tono: snow | foam | sea | pend | (vacío = pieza normal). ancho: s-5 | s-7 | (vacío = ancho completo).
+
+actualizado: "2026-10-06"
+
+grupos:
+  - etiqueta: Construyendo
+    titulo: Esta web
+    tono: snow
+    ancho: s-7
+    filas:
+      - titulo: Estrenando esta web
+        linea: La nueva versión ya está publicada.
+        estado: en curso
+        forma: curso
+        portada: true
+
+  - etiqueta: Explorando
+    titulo: IA aplicada
+    tono: foam
+    ancho: s-5
+    filas:
+      - titulo: IA aplicada a infraestructura
+        linea: Automatización y observabilidad.
+        estado: en curso
+        forma: curso
+        portada: true
+
+  - etiqueta: Entrenando
+    titulo: El cuerpo, a su ritmo
+    columnas: true
+    filas:
+      - titulo: Baloncesto
+        linea: Ya no juego tanto, pero sigo conectado. Me marcó bastante.
+        estado: siempre cerca
+        forma: semanal
+        portada: true
+      - titulo: Pesca submarina
+        linea: Cuando el mar lo permite.
+        estado: según el mar
+        forma: mar
+        portada: true
+
+  - etiqueta: De fondo, siempre
+    titulo: Lo que sigue su ritmo
+    tono: sea
+    ancho: s-7
+    filas:
+      - titulo: Naturaleza y montaña
+        estado: en segundo plano
+        forma: fondo
+      - titulo: Plantas
+        estado: en segundo plano
+        forma: fondo
+      - titulo: Cine, series y videojuegos
+        estado: en segundo plano
+        forma: fondo
+
+  - etiqueta: Leyendo y escuchando
+    titulo: Lo de este mes
+    tono: pend
+    ancho: s-5
+    filas:
+      - titulo: Economía, psicología e historias de aventuras
+        linea: Sin un libro concreto ahora.
+        estado: leyendo
+        forma: semanal
+      - titulo: De todo, según el momento
+        estado: escuchando
+        forma: semanal

@@ -1,0 +1,5 @@
+{%- comment -%} Una fila del panel Ahora. Parámetros: fila (de _data/ahora.yml) y h (h3 o h4). {%- endcomment -%}
+<li class="row">
+  <div><{{ include.h }}>{{ include.fila.titulo }}</{{ include.h }}>{% if include.fila.linea %}<p>{{ include.fila.linea }}</p>{% endif %}</div>
+  <p class="estado e-{{ include.fila.forma }}"><i aria-hidden="true"></i>{{ include.fila.estado }}</p>
+</li>

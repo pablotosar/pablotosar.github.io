@@ -1,12 +1,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 {% if page.csp %}<meta http-equiv="Content-Security-Policy" content="{{ page.csp }}">{% endif %}
+<meta name="color-scheme" content="light dark">
 {% seo %}
-<link rel="preload" href="{{ '/assets/fonts/literata-latin-400-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<script src="{{ '/assets/js/app.js' | relative_url }}"></script>
+<link rel="preload" href="{{ '/assets/fonts/mona-sans-latin-wdth-normal.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 <link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
 <link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
-<link rel="alternate" type="application/rss+xml" title="{{ site.title }} — Writing" href="{{ '/feed.xml' | relative_url }}">
+<link rel="alternate" type="application/rss+xml" title="{{ site.title }} · Escritos" href="{{ '/feed.xml' | relative_url }}">
 {% if page.url == "/" %}
 <script type="application/ld+json">
 {
@@ -14,9 +16,10 @@
   "@type": "Person",
   "name": "Pablo Tosar",
   "url": "https://pablotosar.com",
+  "image": "https://pablotosar.com/assets/images/pablo-perfil-800.webp",
   "email": "hola@pablotosar.com",
-  "jobTitle": "IT Infrastructure",
   "description": "{{ site.description }}",
+  "homeLocation": { "@type": "Place", "name": "Galicia" },
   "sameAs": [
     "https://es.linkedin.com/in/pablo-tosar-fragio/en",
     "https://github.com/pablotosar"

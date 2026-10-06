@@ -4,7 +4,7 @@ title: "Título del artículo"
 date: 2026-06-12
 tag: Tecnología
 excerpt: "Breve descripción del artículo que aparece en la lista y en el SEO."
-image: /assets/images/pablo-1024.webp
+image: /assets/images/pablo-og-1200x630.jpg
 ---
 
 Párrafo de apertura. Escribe en primera persona y con voz propia.
@@ -38,4 +38,4 @@ Cierra con algo que valga la pena recordar.
 
 ---
 
-*Fuentes: Autor, A. (2020). «Título de la fuente». Revista, 1(1), 1–10.*
+*Fuentes: Autor, A. (2020). «Título de la fuente». Revista, 1(1), 1-10.*

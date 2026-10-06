@@ -1,0 +1,32 @@
+{%- comment -%} Calculadora rápida (app.js). Parámetros: leyenda, minutos (valor inicial) y el resultado ya calculado para esos valores (total, veredicto, ahorro, estado), para que se lea igual sin JavaScript. La completa vive en /herramientas/automatizar/. {%- endcomment -%}
+<form class="calc" id="calc" novalidate>
+  <fieldset>
+    <legend>{{ include.leyenda }}</legend>
+    <div class="seg" role="radiogroup" aria-label="Frecuencia de la tarea">
+      <label><input type="radio" name="freq" value="12">Mensual</label>
+      <label><input type="radio" name="freq" value="52" checked>Semanal</label>
+      <label><input type="radio" name="freq" value="220">Diaria</label>
+    </div>
+    <div class="range">
+      <div class="range-head"><label for="c-min">Minutos que ahorras cada vez</label><output for="c-min" data-for="min">{{ include.minutos }}</output></div>
+      <input id="c-min" name="min" type="range" min="1" max="60" value="{{ include.minutos }}">
+    </div>
+    <div class="range">
+      <div class="range-head"><label for="c-horas">Horas para montarla</label><output for="c-horas" data-for="horas">6</output></div>
+      <input id="c-horas" name="horas" type="range" min="1" max="40" value="6">
+    </div>
+    <div class="range">
+      <div class="range-head"><label for="c-mant">Mantenimiento al mes (min)</label><output for="c-mant" data-for="mant">15</output></div>
+      <input id="c-mant" name="mant" type="range" min="0" max="120" step="5" value="15">
+    </div>
+  </fieldset>
+  <div class="result" id="calc-result" data-state="{{ include.estado }}">
+    <p class="label">Balance en el primer año</p>
+    <output class="total" id="calc-out" for="c-min c-horas c-mant" aria-live="polite">{{ include.total }}</output>
+    <p class="verdict" id="calc-verdict">{{ include.veredicto }}</p>
+    <dl>
+      <dt>Tiempo ahorrado</dt><dd id="calc-save">{{ include.ahorro }}</dd>
+      <dt>Tiempo invertido</dt><dd id="calc-cost">9 h</dd>
+    </dl>
+  </div>
+</form>

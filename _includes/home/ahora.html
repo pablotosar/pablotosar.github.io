@@ -1,0 +1,21 @@
+<!-- Escena 6 · Ahora y contacto (filas desde _data/ahora.yml) -->
+{%- assign ahora = site.data.ahora %}
+<section class="chapter" aria-labelledby="ahora-cap">
+  <h2 class="chapter-title" id="ahora-cap">Ahora, y cómo hablar conmigo</h2>
+  <div class="bento">
+    <section class="tile t-ahora s-5" aria-labelledby="ahora-t" data-glow>
+      <div class="panel-bar">
+        <h3 id="ahora-t">Este mes</h3>
+        <p class="mono muted">actualizado <time datetime="{{ ahora.actualizado | date: '%Y-%m-%d' }}">{% include fecha.html date=ahora.actualizado corta=true %}</time></p>
+      </div>
+      <ul class="rows" role="list">
+        {%- for grupo in ahora.grupos %}{% for fila in grupo.filas %}{% if fila.portada %}
+        {% include ahora-fila.html fila=fila h="h4" %}
+        {%- endif %}{% endfor %}{% endfor %}
+      </ul>
+      <a class="link" href="/now/">Todo lo de ahora {% include flecha.html %}</a>
+    </section>
+
+    {% include contacto.html id="contacto-t" h="h3" titulo="Si algo de esto te resuena, escríbeme." texto="Una buena conversación siempre suma." copiar=true clase="s-7" %}
+  </div>
+</section>

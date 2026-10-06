@@ -1,0 +1,32 @@
+@layer base {
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 24px); }
+  @media (max-width: 819px) { html { scroll-padding-top: 128px; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font); font-size: 1.0625rem; line-height: 1.55; font-stretch: 100%;
+    -webkit-font-smoothing: antialiased; min-height: 100dvh; overflow-x: clip;
+    hyphens: manual; overflow-wrap: normal;
+  }
+  /* Grano fijo, sin repintado al hacer scroll */
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 3; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1, h2, h3, h4 { font-weight: 760; font-stretch: 112%; letter-spacing: -0.03em; line-height: 1.04; text-wrap: balance; }
+  p, li { text-wrap: pretty; }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 6px; }
+  .vh { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .skip {
+    position: fixed; left: 16px; top: 12px; z-index: 10; translate: 0 -200%;
+    display: inline-flex; align-items: center; min-height: 44px;
+    background: var(--ink); color: var(--bg); padding: 0 18px; border-radius: 999px; font-weight: 650; text-decoration: none;
+  }
+  [hidden] { display: none !important; }
+  .d1 { --i: 1; } .d2 { --i: 2; } .d3 { --i: 3; }
+  .skip:focus-visible { translate: 0 0; outline-color: var(--buoy); }
+  .mono, .kicker { font-family: var(--mono); font-size: .8125rem; letter-spacing: .01em; font-weight: 450; }
+  .kicker { color: var(--ink-2); }
+  .muted { color: var(--ink-2); }
+}

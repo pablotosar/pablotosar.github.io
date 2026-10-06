@@ -1,16 +1,15 @@
-<header class="site-header" role="banner">
-  <div class="wrap">
-    <div class="header-inner">
-      <a href="/" class="site-logo" aria-label="{{ site.title }} — Inicio">
-        <span class="logo-dot" aria-hidden="true"></span>
-        {{ site.title }}
-      </a>
-      <nav class="site-nav" aria-label="Navegación principal">
-        <a href="/about/"   {% if page.url contains '/about/'   %}aria-current="page"{% endif %}>Sobre mí</a>
-        <a href="/writing/" {% if page.url contains '/writing/' %}aria-current="page"{% endif %}>Escritos</a>
-        <a href="/now/"     {% if page.url contains '/now/'     %}aria-current="page"{% endif %}>Ahora</a>
-        <a href="/contact/" {% if page.url contains '/contact/' %}aria-current="page"{% endif %}>Contacto</a>
-      </nav>
-    </div>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="/"{% if page.url == "/" %} aria-current="page"{% endif %}><span class="brand-mark" aria-hidden="true"></span>{{ site.title }}</a>
+    <nav class="nav site-nav" aria-label="Principal">
+      <ul role="list">
+        <li><a href="/about/"{% if page.url contains '/about/' %} aria-current="page"{% endif %}>Sobre mí</a></li>
+        <li><a href="/writing/"{% if page.url contains '/writing/' %} aria-current="page"{% endif %}>Escritos</a></li>
+        <li><a href="/now/"{% if page.url contains '/now/' %} aria-current="page"{% endif %}>Ahora</a></li>
+        <li><a href="/herramientas/"{% if page.url contains '/herramientas/' %} aria-current="page"{% endif %}>Herramientas</a></li>
+        <li><a href="/contact/"{% if page.url contains '/contact/' %} aria-current="page"{% endif %}>Contacto</a></li>
+      </ul>
+    </nav>
+    <button class="theme" id="tema" type="button" aria-pressed="false"><i aria-hidden="true"></i><span class="vh">Tema oscuro</span></button>
   </div>
 </header>

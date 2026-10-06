@@ -1,0 +1,53 @@
+@layer reset {
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+  html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+  img, svg { display: block; max-width: 100%; }
+  button, input { font: inherit; color: inherit; }
+  ul[role="list"], ol[role="list"] { list-style: none; padding: 0; }
+}
+
+/* ---------- Tokens: paleta «Ría» en oklch. light-dark() resuelve claro/oscuro por color-scheme ---------- */
+@layer tokens {
+  :root {
+    color-scheme: light dark;
+    /* Superficies */
+    --bg:     light-dark(oklch(0.955 0.008 235), oklch(0.17 0.02 240));   /* granito */
+    --tile:   light-dark(oklch(0.99 0.004 235),  oklch(0.215 0.024 240));  /* pieza */
+    --snow:   light-dark(oklch(0.975 0.01 250),  oklch(0.23 0.03 250));    /* nieve (Canadá) */
+    --foam:   light-dark(oklch(0.93 0.035 190),  oklch(0.26 0.03 200));    /* espuma */
+    --sea:    light-dark(oklch(0.33 0.065 225),  oklch(0.30 0.06 225));    /* Atlántico */
+    --deep:   light-dark(oklch(0.23 0.035 240),  oklch(0.215 0.024 240));  /* tinta como superficie */
+    --close:  light-dark(oklch(0.23 0.035 240),  oklch(0.30 0.06 225));    /* cierre / contacto */
+    --buoy:   light-dark(oklch(0.70 0.18 45),    oklch(0.72 0.17 48));     /* naranja boya: acento único */
+    /* Texto */
+    --ink:        light-dark(oklch(0.23 0.035 240), oklch(0.95 0.01 235));
+    --ink-2:      light-dark(oklch(0.44 0.03 240),  oklch(0.78 0.02 235));
+    --on-sea:     oklch(0.95 0.02 210);
+    --on-sea-2:   oklch(0.84 0.04 210);
+    --on-buoy:    light-dark(oklch(0.25 0.06 40), oklch(0.22 0.05 40));
+    --buoy-on-ink:light-dark(oklch(0.70 0.18 45), oklch(0.80 0.14 50));    /* naranja sobre --on-buoy */
+    --accent-ink: light-dark(oklch(0.53 0.17 40), oklch(0.76 0.15 50));    /* naranja como texto */
+    --line:   color-mix(in oklch, var(--ink) 13%, transparent);
+    /* Profundidad: sombras teñidas de tinta, luz cenital, filo superior brillante */
+    --hi:   light-dark(color-mix(in oklch, white 70%, transparent), color-mix(in oklch, white 7%, transparent));
+    --sh-1: light-dark(oklch(0.23 0.035 240 / 0.08), oklch(0 0 0 / 0.3));
+    --sh-2: light-dark(oklch(0.23 0.035 240 / 0.30), oklch(0 0 0 / 0.6));
+    --sh-3: light-dark(oklch(0.23 0.035 240 / 0.38), oklch(0 0 0 / 0.75));
+    --shadow: inset 0 1px 0 var(--hi), 0 1px 2px var(--sh-1), 0 14px 34px -18px var(--sh-2);
+    --shadow-lift: inset 0 1px 0 var(--hi), 0 2px 4px var(--sh-1), 0 26px 50px -22px var(--sh-3);
+    /* Forma */
+    --r-tile: 28px;
+    --r-in: 14px;
+    --gap: clamp(10px, 1.1vw, 16px);
+    --pad: clamp(20px, 2.4vw, 34px);
+    --header-h: 68px;
+    /* Muelles calculados (amortiguación 0,72 para respuesta; 1,0 para asentarse) */
+    --spring: linear(0, 0.07, 0.226, 0.411, 0.587, 0.737, 0.853, 0.936, 0.989, 1.02, 1.035, 1.038, 1.035, 1.029, 1.022, 1.016, 1.01, 1.005, 1.002, 1);
+    --settle: linear(0, 0.069, 0.212, 0.368, 0.511, 0.631, 0.727, 0.801, 0.856, 0.897, 0.927, 0.949, 0.964, 0.975, 0.983, 0.988, 0.992, 0.994, 0.996, 0.997, 0.998, 0.999, 1);
+    --font: "Mona Sans", ui-sans-serif, system-ui, sans-serif;
+    --mono: "Geist Mono", ui-monospace, "Cascadia Mono", monospace;
+  }
+  :root[data-theme="light"] { color-scheme: light; }
+  :root[data-theme="dark"]  { color-scheme: dark; }
+}

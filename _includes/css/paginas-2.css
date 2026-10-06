@@ -1,0 +1,94 @@
+/* ---------- Resto del sitio en el mismo sistema: Escritos, artículo, Contacto, legal, 404 y la calculadora ---------- */
+@layer pages {
+  .chapter.grupos { margin-top: var(--gap); }
+  .t-page > .post-back, .t-page > .kicker:first-of-type { margin-bottom: auto; }
+
+  .t-pend-frase { font-size: clamp(1.375rem, 1rem + 3cqi, 1.875rem); max-width: 22ch; }
+
+  /* Escritos */
+  .escritos-vacio { min-height: 300px; }
+  .escritos-vacio h2 { font-size: clamp(1.75rem, 1rem + 4cqi, 2.6rem); max-width: 18ch; }
+  .temas-previstos { display: flex; flex-wrap: wrap; gap: 8px; }
+  .temas-previstos li {
+    display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px;
+    border: 1.5px solid var(--line); font-size: .9375rem; font-weight: 560; color: var(--ink-2);
+  }
+  .lista-escritos { display: grid; gap: var(--gap); }
+  .escrito { gap: 8px; }
+  .escrito h2 { font-size: clamp(1.375rem, 1rem + 3cqi, 2rem); max-width: 26ch; }
+  .escrito h2 a { text-decoration: none; }
+  .escrito h2 a::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+  .escrito h2 a:focus-visible { outline: none; }
+  .escrito:has(a:focus-visible) { outline: 3px solid var(--ink); outline-offset: 4px; }
+  .escrito .muted { max-width: 60ch; }
+
+  /* Artículo: conserva .post-date, .post-meta-row, .post-body y .table-wrap */
+  .post-back { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; font-weight: 640; text-decoration: none; color: var(--ink-2); }
+  .post-back:hover { color: var(--ink); }
+  .post-back svg { width: 16px; height: 16px; rotate: 180deg; }
+  .post-meta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-family: var(--mono); font-size: .8125rem; color: var(--ink-2); }
+  .post-tag { color: var(--accent-ink); font-weight: 500; }
+  .t-page .post-title { font-size: clamp(2.2rem, 1rem + 5.4cqi, 4.2rem); max-width: 20ch; }
+  .post-tile { margin-top: var(--gap); }
+  .post-body h2 { font-size: clamp(1.5rem, 1.1rem + 1.4vw, 2rem); margin-top: 1.8em; }
+  .post-body h3 { font-size: clamp(1.25rem, 1.05rem + .8vw, 1.5rem); margin-top: 1.6em; }
+  .post-body blockquote { padding-left: 20px; border-left: 4px solid var(--buoy); font-weight: 560; }
+  .post-body code { font-family: var(--mono); font-size: .9em; padding: .1em .35em; border-radius: 6px; background: color-mix(in oklch, var(--ink) 7%, transparent); }
+  .post-body pre { overflow-x: auto; padding: 16px 18px; border-radius: var(--r-in); background: color-mix(in oklch, var(--ink) 6%, transparent); }
+  .post-body pre code { padding: 0; background: none; }
+  .post-body img { height: auto; border-radius: var(--r-in); }
+  .post-body hr { border: 0; border-top: 1px solid var(--line); }
+  .post-body hr ~ p { font-size: .9375rem; color: var(--ink-2); }
+  .post-body .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-in); }
+  .post-body .table-wrap:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+  .post-body table { width: 100%; border-collapse: collapse; font-size: 1rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+  .post-body th, .post-body td { padding: 10px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+  .post-body th { font-weight: 700; white-space: nowrap; background: color-mix(in oklch, var(--ink) 5%, transparent); }
+  .post-body tr:last-child td { border-bottom: 0; }
+  .post-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: var(--gap); }
+  .post-nav a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 640; }
+
+  /* Contacto */
+  .contacto-pagina { margin-top: var(--gap); }
+
+  /* Legal */
+  .legal .prose h2 { font-size: clamp(1.25rem, 1.05rem + .8vw, 1.5rem); margin-top: 1.6em; }
+  .legal .prose a { overflow-wrap: anywhere; }
+
+  /* 404 */
+  .t-page .pill { align-self: flex-start; margin-top: 8px; }
+
+  /* Calculadora completa: mismos ids y JS; formulario a la izquierda y balance fijo a la derecha */
+  .tool { display: grid; gap: var(--gap); margin-top: var(--gap); align-items: start; }
+  .tool > .tool-nota { grid-column: 1 / -1; }
+  @media (min-width: 1024px) {
+    .tool { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+    .tool-resultado { position: sticky; top: calc(var(--header-h) + 16px); }
+  }
+  .tool-form { gap: 0; }
+  .tool-form fieldset { border: 0; padding: 0; min-width: 0; display: grid; gap: 18px; }
+  .tool-form fieldset + fieldset { margin-top: 36px; }
+  .tool-form legend { font-family: var(--mono); font-size: .8125rem; font-weight: 450; color: var(--ink-2); padding: 0; margin-bottom: 14px; }
+  .tool-campo { display: grid; gap: 6px; }
+  .tool-campo label { font-weight: 640; line-height: 1.3; }
+  .tool-campo input {
+    width: 100%; max-width: 200px; min-height: 48px; padding: 0 16px; border-radius: var(--r-in);
+    border: 1.5px solid color-mix(in oklch, var(--ink) 45%, transparent); background: var(--bg); color: var(--ink);
+    font-family: var(--mono); font-size: 1.0625rem; font-variant-numeric: tabular-nums;
+  }
+  .tool-campo input:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; border-color: var(--ink); }
+  .tool-ayuda { font-size: .9375rem; color: var(--ink-2); max-width: 52ch; }
+  .tool-resultado { background: var(--buoy); color: var(--on-buoy); gap: 18px; }
+  .tool-resultado dl { display: grid; gap: 14px; }
+  .tool-resultado dl > div { display: grid; gap: 2px; padding-top: 12px; border-top: 1px solid color-mix(in oklch, var(--on-buoy) 25%, transparent); }
+  .tool-resultado dl > div:first-child { border-top: 0; padding-top: 0; }
+  .tool-resultado dt { font-weight: 620; font-size: .9375rem; }
+  .tool-resultado dd { font-family: var(--mono); font-size: 1.375rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+  .tool-resultado .tool-neto { background: var(--tile); color: var(--ink); border: 0; border-radius: calc(var(--r-tile) - 10px); padding: 18px 20px; }
+  .tool-resultado .tool-neto dt { color: var(--ink-2); }
+  .tool-resultado .tool-neto dd { font-size: clamp(2.4rem, 1.6rem + 5cqi, 3.6rem); letter-spacing: -0.05em; line-height: 1; white-space: nowrap; }
+  .tool-resultado[data-estado="compensa"] .tool-neto dd { color: var(--accent-ink); }
+  .tool-mensaje { font-weight: 600; max-width: 46ch; }
+  .tool-nota { color: var(--ink-2); max-width: 66ch; padding-inline: 4px; }
+  .tool > .tile.tool-nota { padding: var(--pad); color: var(--ink); }
+}

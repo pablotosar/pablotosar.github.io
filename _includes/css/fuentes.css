@@ -1,0 +1,14 @@
+/* Fuentes autoalojadas (SIL OFL 1.1, licencias en /assets/fonts/). Subconjunto latino de @fontsource-variable 5.3.0.
+   Mona Sans: ejes de peso (200-900) y anchura (75-125 %). Geist Mono: solo datos. */
+@font-face {
+  font-family: "Mona Sans"; font-style: normal; font-display: swap;
+  font-weight: 200 900; font-stretch: 75% 125%;
+  src: url("/assets/fonts/mona-sans-latin-wdth-normal.woff2") format("woff2-variations"),
+       url("/assets/fonts/mona-sans-latin-wdth-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Geist Mono"; font-style: normal; font-display: swap;
+  font-weight: 100 900;
+  src: url("/assets/fonts/geist-mono-latin-wght-normal.woff2") format("woff2-variations"),
+       url("/assets/fonts/geist-mono-latin-wght-normal.woff2") format("woff2");
+}

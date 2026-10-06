@@ -1,4 +1,9 @@
-{%- comment -%} Fecha en español: {% include fecha.html date=page.date %} → «1 de octubre de 2026» {%- endcomment -%}
-{%- assign meses = "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre" | split: "," -%}
+{%- comment -%} Fecha en español: {% include fecha.html date=page.date %} → «1 de octubre de 2026»; con corta=true → «1 oct 2026» {%- endcomment -%}
 {%- assign indice = include.date | date: "%-m" | minus: 1 -%}
+{%- if include.corta -%}
+{%- assign meses = "ene,feb,mar,abr,may,jun,jul,ago,sep,oct,nov,dic" | split: "," -%}
+{{ include.date | date: "%-d" }} {{ meses[indice] }} {{ include.date | date: "%Y" }}
+{%- else -%}
+{%- assign meses = "enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre" | split: "," -%}
 {{ include.date | date: "%-d" }} de {{ meses[indice] }} de {{ include.date | date: "%Y" }}
+{%- endif -%}
