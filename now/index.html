@@ -1,96 +1,34 @@
 ---
 layout: default
-title: Ahora — Pablo Tosar
+title: Ahora
 description: >-
-  Qué está haciendo Pablo Tosar ahora mismo: construyendo, leyendo,
-  entrenando y explorando.
-# ACTUALIZA ESTE ARCHIVO cada vez que quieras:
-# 1. Cambia el campo "now_updated" con la fecha actual
-# 2. Edita los campos de cada sección below
-# 3. Haz git add, commit y push
-now_updated: "11 de junio de 2026"
-now_location: "Santiago de Compostela, Galicia"
+  Ahora. Qué ocupa el tiempo de Pablo Tosar este mes: construyendo,
+  explorando, entrenando, leyendo y escuchando.
+# El contenido de esta página se edita en _data/ahora.yml (fecha y filas).
 ---
+{%- assign ahora = site.data.ahora %}
+<header class="tile t-page">
+  {% include ria.html %}
+  <p class="kicker hero-in">Actualizado el <time datetime="{{ ahora.actualizado | date: '%Y-%m-%d' }}">{% include fecha.html date=ahora.actualizado %}</time></p>
+  <h1 class="hero-in d1">Ahora</h1>
+  <p class="lede hero-in d2">Qué ocupa mi tiempo este mes. Lo actualizo cuando cambia algo, sin forzarlo.</p>
+</header>
 
-<section class="now-header" aria-label="Encabezado Now">
-  <div class="wrap">
-    <h1 class="page-title">Ahora</h1>
-    <p class="page-subtitle">En qué estoy enfocado en este momento.</p>
-    <p class="now-updated">
-      <span class="dot" aria-hidden="true"></span>
-      Actualizado el {{ page.now_updated }}{% if page.now_location %} · {{ page.now_location }}{% endif %}
-    </p>
-  </div>
-</section>
-
-<div class="wrap">
-  <div class="now-grid">
-
-    <!-- ── Columna principal: items actuales ── -->
-    <div class="now-items" aria-label="Qué estoy haciendo">
-
-      <!-- CONSTRUYENDO -->
-      <div class="now-item">
-        <p class="now-item-cat">Construyendo</p>
-        <p class="now-item-val">
-          El rediseño completo de esta web.
-          <small>Arquitectura Jekyll, nuevo sistema visual, primeros artículos.</small>
-        </p>
-      </div>
-
-      <!-- LEYENDO -->
-      <!-- ✏️ Actualiza el título y la nota del libro que estés leyendo -->
-      <div class="now-item">
-        <p class="now-item-cat amber">Leyendo</p>
-        <p class="now-item-val">
-          Pendiente de actualizar.
-          <small>Añade aquí el libro que estés leyendo.</small>
-        </p>
-      </div>
-
-      <!-- ESCUCHANDO -->
-      <!-- ✏️ Actualiza con lo que estés escuchando -->
-      <div class="now-item">
-        <p class="now-item-cat slate">Escuchando</p>
-        <p class="now-item-val">
-          Pendiente de actualizar.
-          <small>Añade aquí música, podcast o lo que estés escuchando.</small>
-        </p>
-      </div>
-
-      <!-- ENTRENANDO -->
-      <div class="now-item">
-        <p class="now-item-cat" style="color:#047D58;">Entrenando</p>
-        <p class="now-item-val">
-          Baloncesto los jueves. Apnea cuando el mar lo permite.
-        </p>
-      </div>
-
-      <!-- EXPLORANDO -->
-      <!-- ✏️ Actualiza con lo que estés explorando o aprendiendo -->
-      <div class="now-item">
-        <p class="now-item-cat" style="color:#7C3AED;">Explorando</p>
-        <p class="now-item-val">
-          Inteligencia Artificial aplicada a infraestructura IT.
-          <small>Automatización, observabilidad y lo que viene después.</small>
-        </p>
-      </div>
-
-    </div>
-
-    <!-- ── Columna lateral ── -->
-    <aside class="now-sidebar" aria-label="Información adicional">
-      <div class="now-about-blurb">
-        Una <em>now page</em> es un snapshot de lo que una persona
-        está haciendo en este momento de su vida. Idea de
-        <a href="https://nownownow.com/about" rel="noopener noreferrer" target="_blank">Derek Sivers</a>.
-      </div>
-
-      <div class="now-footnote">
-        ¿Quieres saber más sobre mí?<br>
-        <a href="/about/">Página About →</a>
-      </div>
-    </aside>
-
+<div class="chapter grupos">
+  <div class="bento">
+    {%- for grupo in ahora.grupos %}
+    {%- capture gid %}g-{{ forloop.index }}{% endcapture %}
+    <section class="tile grupo{% if grupo.tono == 'pend' %} t-pend{% elsif grupo.tono %} {{ grupo.tono }}{% endif %}{% if grupo.tono == 'sea' %} on-dark{% endif %}{% if grupo.ancho %} {{ grupo.ancho }}{% endif %}" aria-labelledby="{{ gid }}">
+      <p class="kicker">{{ grupo.etiqueta }}</p>
+      <h2 id="{{ gid }}">{{ grupo.titulo }}</h2>
+      <ul class="rows{% if grupo.columnas %} cols{% endif %}" role="list">
+        {%- for fila in grupo.filas %}
+        {% include ahora-fila.html fila=fila h="h3" %}
+        {%- endfor %}
+      </ul>
+    </section>
+    {%- endfor %}
   </div>
 </div>
+
+<p class="que-es">Esta es una página «Ahora»: en vez de contar todo lo que he hecho, cuenta en qué estoy. Se actualiza a mano, sin prisa.</p>

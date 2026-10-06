@@ -135,3 +135,96 @@ test('zonas táctiles de navegación y footer de al menos 44 px', async ({ page 
     }
   }
 });
+
+// ── Rediseño «Ría con criterio» ─────────────────────────────────────────────
+
+// Páginas que no están en el sitemap (legal, 404) también se revisan.
+const FUERA_DEL_SITEMAP = ['/legal/', '/legal/privacidad/', '/legal/cookies/', '/404.html', '/writing/post-template/'];
+const PROHIBIDO = [
+  /data-provisional/i,
+  /Revisar antes de publicar/i,
+  /class="[^"]*\bpendiente\b/i,
+  /Por confirmar/i,
+  /con puntos/i,
+  /falta información/i,
+  /lesion/i,
+  /crisis personales/i,
+  /Coruña/i,
+  /momentos personales/i,
+  /terapia/i,
+  /apnea/i,
+  /despacio/i,
+  /Santiago/i,
+  /jueves/i,
+];
+
+test('ningún HTML publicado contiene texto provisional, palabras retiradas ni rayas largas', async ({ request }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'comprobación de contenido: basta con un proyecto');
+  const rutas = [...new Set([...(await sitemapPaths(request)), ...FUERA_DEL_SITEMAP])];
+  for (const ruta of rutas) {
+    const res = await request.get(ruta);
+    if (ruta === '/writing/post-template/' && res.status() === 404) continue; // solo existe con --drafts
+    expect(res.status(), ruta).toBe(200);
+    // La calculadora usa «—» como valor vacío de sus resultados: es un símbolo, no texto.
+    const html = (await res.text()).replace(/(<dd data-resultado="[^"]*">)—(<\/dd>)/g, '$1$2');
+    for (const patron of PROHIBIDO) expect.soft(html, `${ruta} contiene ${patron}`).not.toMatch(patron);
+    expect.soft(html, `${ruta} contiene rayas largas (— o –)`).not.toMatch(/[\u2013\u2014]/);
+  }
+});
+
+test('modo oscuro: la portada es accesible (axe) con prefers-color-scheme: dark', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/', { waitUntil: 'networkidle' });
+  expect(await page.evaluate(() => matchMedia('(prefers-color-scheme: dark)').matches)).toBe(true);
+  const { violations } = await new AxeBuilder({ page }).withTags(WCAG_TAGS).analyze();
+  expect(violations, formatViolations(violations)).toEqual([]);
+});
+
+test('el conmutador de tema fuerza el oscuro y se recuerda al navegar', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'light' });
+  await page.goto('/');
+  await page.click('#tema');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await expect(page.locator('#tema')).toHaveAttribute('aria-pressed', 'true');
+  await page.goto('/now/');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+});
+
+test('prefers-reduced-motion: ninguna animación en marcha', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const ruta of ['/', '/about/', '/now/', '/herramientas/', '/herramientas/automatizar/']) {
+    await test.step(ruta, async () => {
+      await page.goto(ruta, { waitUntil: 'networkidle' });
+      await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+      await expect
+        .poll(() => page.evaluate(() => document.getAnimations().filter((a) => a.playState === 'running').length), { message: `${ruta}: animaciones en marcha` })
+        .toBe(0);
+    });
+  }
+});
+
+test('nada se solapa con la boya de la portada (320, 390 y 1440 px)', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop', 'los anchos se fijan dentro de la prueba');
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await page.evaluate(() => document.fonts.ready);
+    const solapes = await page.evaluate(() => {
+      const out = [];
+      for (const boya of document.querySelectorAll('.ria-buoy')) {
+        const B = boya.getBoundingClientRect();
+        const pieza = boya.closest('.tile') || document.body;
+        for (const el of pieza.querySelectorAll('h1, h2, p, a, .kicker')) {
+          const rango = document.createRange();
+          rango.selectNodeContents(el);
+          for (const r of rango.getClientRects()) {
+            if (r.right > B.left && r.left < B.right && r.bottom > B.top && r.top < B.bottom) { out.push(el.textContent.trim().slice(0, 40)); break; }
+          }
+        }
+      }
+      return out;
+    });
+    expect.soft(solapes, `${width}px: texto encima de la boya`).toEqual([]);
+  }
+});

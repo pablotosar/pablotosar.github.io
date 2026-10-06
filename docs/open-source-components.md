@@ -1,12 +1,26 @@
 # Componentes open source
 
-Qué usamos, por qué y cómo quitarlo. Solo herramientas de verificación: **nada de
-esto se publica con la web** (`docs/`, `tests/` y `package*.json` están en
-`exclude` de `_config.yml`). La web publicada sigue siendo HTML + CSS sin JavaScript.
+Qué usamos, por qué y cómo quitarlo. Las herramientas de verificación **no se publican
+con la web** (`docs/`, `tests/` y `package*.json` están en `exclude` de `_config.yml`).
+Lo único de terceros que sí se publica son las dos fuentes, autoalojadas (sección siguiente).
+La web publicada es HTML + CSS con dos JS propios y sin librerías: `assets/js/app.js`
+(tema, hojas, carrusel, calculadora rápida, copiar correo) y `assets/js/automatizar.js`.
+Nada se carga desde dominios de terceros.
 
-Revisado: 2026-09-30. Revisión de oportunidades: semanal. Actualizaciones: Dependabot.
+Revisado: 2026-10-06. Revisión de oportunidades: semanal. Actualizaciones: Dependabot.
 
-## En uso
+## Fuentes publicadas con la web (autoalojadas)
+
+| Fuente | Paquete / versión | Archivo en `assets/fonts/` | Licencia | Uso | Cómo retirarla |
+|---|---|---|---|---|---|
+| [Mona Sans](https://github.com/github/mona-sans) (GitHub) | `@fontsource-variable/mona-sans` 5.3.0 (obtenida con `npm pack`, sin ejecutar scripts) | `mona-sans-latin-wdth-normal.woff2` (96 KB; subconjunto latino, ejes peso 200-900 y anchura 75-125 %) | SIL OFL 1.1, *Reserved Font Name* «Mona»: `LICENSE-MonaSans-OFL.txt` | Toda la tipografía del sitio; se precarga en `_includes/head.html` | Borrar el woff2 y su licencia, el `@font-face` de `_includes/css/fuentes.css`, el `preload` de `head.html` y cambiar `--font` en `_includes/css/tokens.css` |
+| [Geist Mono](https://github.com/vercel/geist-font) (Vercel) | `@fontsource-variable/geist-mono` 5.3.0 (`npm pack`) | `geist-mono-latin-wght-normal.woff2` (23 KB; subconjunto latino, peso variable) | SIL OFL 1.1: `LICENSE-GeistMono-OFL.txt` | Solo datos: etiquetas, fechas, cifras | Borrar el woff2 y su licencia, su `@font-face` y cambiar `--mono` en `tokens.css` |
+
+SHA-256: Mona Sans `5ea37406…a8947ccb2f3`, Geist Mono `684ad5b5…efa8d33c8cc`. Para actualizarlas:
+`npm pack @fontsource-variable/<fuente>`, copiar el `files/*-latin-*-normal.woff2` y el `LICENSE`.
+Literata se retiró en el rediseño de 2026-10 (ya no se usa).
+
+## En uso (verificación)
 
 | Proyecto | Versión / commit | Licencia | Necesidad | Por qué este | Riesgos y mantenimiento | Cómo retirarlo |
 |---|---|---|---|---|---|---|

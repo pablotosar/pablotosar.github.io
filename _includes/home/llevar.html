@@ -1,0 +1,38 @@
+<!-- Escena 5 · Para llevarte -->
+<section class="chapter" aria-labelledby="llevar">
+  <h2 class="chapter-title" id="llevar">Para llevarte</h2>
+  <div class="bento">
+    <article class="tile t-calc s-7 r-2">
+      <p class="kicker">Herramienta</p>
+      <h3>¿Compensa automatizarlo?</h3>
+      <p>Una cuenta sencilla que incluye lo que se suele olvidar: el mantenimiento. Prueba una versión rápida aquí.</p>
+      {% include calc-rapida.html leyenda="Tu tarea" minutos="18" total="+6,6 h" veredicto="Compensa ya en el primer año." ahorro="15,6 h" estado="yes" %}
+      <div class="calc-foot">
+        <a class="pill" href="/herramientas/automatizar/">Abrir la calculadora {% include flecha.html %}</a>
+        <small>Valores de ejemplo. La versión completa calcula varios años y no guarda ni envía nada.</small>
+      </div>
+    </article>
+
+    <article class="tile t-escritos s-5 half" data-glow>
+      <div class="sheets" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h3>Escritos</h3>
+      {%- if site.posts.size > 0 %}
+      <ul class="rows" role="list">
+        {%- for post in site.posts limit:3 %}
+        <li class="row"><div><h4><a href="{{ post.url }}">{{ post.title }}</a></h4><p><time datetime="{{ post.date | date_to_xmlschema }}">{% include fecha.html date=post.date %}</time></p></div></li>
+        {%- endfor %}
+      </ul>
+      {%- else %}
+      <p class="muted">Aún no hay nada publicado. Los primeros textos llegarán pronto, sin prisa.</p>
+      {%- endif %}
+      <a class="link" href="/writing/">Ir a Escritos {% include flecha.html %}</a>
+    </article>
+
+    <article class="tile t-pend s-5 half">
+      <p class="kicker">Herramientas</p>
+      <h3>La siguiente</h3>
+      <p class="muted">Saldrá de una pregunta real, cuando la haya. Sin prisa.</p>
+      <a class="link" href="/herramientas/">Ver herramientas {% include flecha.html %}</a>
+    </article>
+  </div>
+</section>

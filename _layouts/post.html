@@ -1,40 +1,30 @@
 ---
 layout: default
 ---
-<article>
-  <header class="post-header">
-    <div class="wrap">
-      <a href="/writing/" class="post-back" aria-label="Volver a Escritos">
-        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
-        Escritos
-      </a>
-      <div class="post-meta-row">
-        {% if page.tag %}<span class="post-tag">{{ page.tag }}</span>{% endif %}
-        <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">
-          {% include fecha.html date=page.date %}
-        </time>
-        {%- assign minutos = content | number_of_words | divided_by: 200 | at_least: 1 %}
-        <span class="post-date">· {{ page.reading_time | default: minutos }} min de lectura</span>
-      </div>
-      <h1 class="post-title">{{ page.title }}</h1>
+<article class="post">
+  <header class="tile t-page post-header">
+    {% include ria.html %}
+    <a href="/writing/" class="post-back">{% include flecha.html %}Escritos</a>
+    <div class="post-meta-row">
+      {% if page.tag %}<span class="post-tag">{{ page.tag }}</span>{% endif %}
+      <time class="post-date" datetime="{{ page.date | date_to_xmlschema }}">{% include fecha.html date=page.date %}</time>
+      {%- assign minutos = content | number_of_words | divided_by: 200 | at_least: 1 %}
+      <span class="post-date">· {{ page.reading_time | default: minutos }} min de lectura</span>
     </div>
+    <h1 class="post-title">{{ page.title }}</h1>
   </header>
 
-  <div class="wrap">
-    <div class="post-body">
+  <div class="tile capitulo post-tile">
+    <div class="prose post-body">
       {%- comment -%} Las tablas se envuelven en una región desplazable y enfocable para móvil. {%- endcomment -%}
       {{ content | replace: "<table>", '<div class="table-wrap" role="region" aria-label="Tabla (desplazable)" tabindex="0"><table>' | replace: "</table>", "</table></div>" }}
     </div>
-
-    <nav class="post-nav" aria-label="Artículos relacionados">
-      {% if page.previous %}
-        <a href="{{ page.previous.url }}" rel="prev">← {{ page.previous.title }}</a>
-      {% else %}
-        <span></span>
-      {% endif %}
-      {% if page.next %}
-        <a href="{{ page.next.url }}" rel="next">{{ page.next.title }} →</a>
-      {% endif %}
-    </nav>
   </div>
+
+  {% if page.previous or page.next %}
+  <nav class="post-nav" aria-label="Artículos relacionados">
+    {% if page.previous %}<a href="{{ page.previous.url }}" rel="prev">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url }}" rel="next">{{ page.next.title }} →</a>{% endif %}
+  </nav>
+  {% endif %}
 </article>

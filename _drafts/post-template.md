@@ -38,4 +38,4 @@ Cierra con algo que valga la pena recordar.
 
 ---
 
-*Fuentes: Autor, A. (2020). «Título de la fuente». Revista, 1(1), 1–10.*
+*Fuentes: Autor, A. (2020). «Título de la fuente». Revista, 1(1), 1-10.*

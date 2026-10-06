@@ -1,56 +1,42 @@
 ---
 layout: default
-title: Escritos — Pablo Tosar
+title: Escritos
 description: >-
-  Reflexiones sobre tecnología, vida y aprendizaje. Escritos de Pablo Tosar.
+  Escritos de Pablo Tosar: reflexiones sobre tecnología, vida y aprendizaje.
 ---
+<header class="tile t-page">
+  {% include ria.html %}
+  <h1 class="hero-in d1">Escritos</h1>
+  <p class="lede hero-in d2">Reflexiones sobre tecnología, vida y aprendizaje.</p>
+</header>
 
-<section class="writing-header" aria-label="Encabezado de Escritos">
-  <div class="wrap">
-    <h1 class="page-title">Escritos</h1>
-    <p class="page-subtitle">Reflexiones sobre tecnología, vida y aprendizaje.</p>
+<div class="chapter grupos">
+  {% if site.posts.size == 0 %}
+  <!-- Estado vacío honesto: aún no hay artículos -->
+  <div class="bento">
+    <section class="tile t-escritos escritos-vacio s-7" aria-labelledby="vacio-t">
+      <div class="sheets" aria-hidden="true"><span></span><span></span><span></span></div>
+      <h2 id="vacio-t">Aún no hay nada publicado.</h2>
+      <p class="muted">Los primeros textos llegarán pronto, sin prisa. Si quieres saber cuándo publique, puedes escribirme.</p>
+      <a class="link" href="/contact/">Escribirme {% include flecha.html %}</a>
+    </section>
+    <section class="tile t-pend s-5" aria-labelledby="temas-t">
+      <p class="kicker">Temas previstos</p>
+      <h2 id="temas-t">De qué escribiré</h2>
+      <ul class="temas-previstos" role="list">
+        <li>Tecnología</li><li>Vida</li><li>Aprendizaje</li><li>Naturaleza</li>
+      </ul>
+    </section>
   </div>
-</section>
-
-<div class="wrap">
-  <div class="writing-body">
-
-    {% if site.posts.size == 0 %}
-    <!-- Estado vacío: diseñado, no placeholder -->
-    <div class="writing-empty-card">
-      <h3>Preparando los primeros textos.</h3>
-      <p>
-        Escribo sobre infraestructura IT, sistemas simples, naturaleza,
-        aprendizaje y lo que me va cambiando la perspectiva. Pronto habrá
-        algo aquí. Si quieres saber cuándo publique, puedes escribirme.
-      </p>
-      <div class="tag-row" aria-label="Temas previstos">
-        <span class="tag-pill">Tecnología</span>
-        <span class="tag-pill">Vida</span>
-        <span class="tag-pill">Aprendizaje</span>
-        <span class="tag-pill">Naturaleza</span>
-      </div>
-    </div>
-
-    {% else %}
-    <!-- Lista de posts -->
-    <nav class="writing-post-list" aria-label="Artículos publicados">
-      {% for post in site.posts %}
-      <a href="{{ post.url }}" class="writing-post-item">
-        <div>
-          {% if post.tag %}<p class="writing-post-tag">{{ post.tag }}</p>{% endif %}
-          <h2 class="writing-post-title">{{ post.title }}</h2>
-          {% if post.excerpt %}
-          <p class="writing-post-excerpt">{{ post.excerpt | strip_html | truncate: 130 }}</p>
-          {% endif %}
-        </div>
-        <time class="writing-post-meta" datetime="{{ post.date | date_to_xmlschema }}">
-          {% include fecha.html date=post.date %}
-        </time>
-      </a>
-      {% endfor %}
-    </nav>
-    {% endif %}
-
-  </div>
+  {% else %}
+  <ol class="lista-escritos" role="list" aria-label="Artículos publicados">
+    {% for post in site.posts %}
+    <li class="tile escrito">
+      <p class="kicker">{% if post.tag %}{{ post.tag }} · {% endif %}<time datetime="{{ post.date | date_to_xmlschema }}">{% include fecha.html date=post.date %}</time></p>
+      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      {% if post.excerpt %}<p class="muted">{{ post.excerpt | strip_html | truncate: 160 }}</p>{% endif %}
+    </li>
+    {% endfor %}
+  </ol>
+  {% endif %}
 </div>
