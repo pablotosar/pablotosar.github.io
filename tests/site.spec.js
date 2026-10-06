@@ -228,3 +228,9 @@ test('nada se solapa con la boya de la portada (320, 390 y 1440 px)', async ({ p
     expect.soft(solapes, `${width}px: texto encima de la boya`).toEqual([]);
   }
 });
+
+test('la calculadora vive solo en Herramientas, no en la portada', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('#calc')).toHaveCount(0);
+  await expect(page.locator('a[href="/herramientas/"]').first()).toBeVisible();
+});
