@@ -18,5 +18,5 @@ gem "wdm", "~> 0.1", platforms: [:mingw, :x64_mingw, :mswin]
 # Solo CI/local: valida el HTML generado (enlaces internos, imágenes, alt).
 # Ver docs/open-source-components.md
 group :test do
-  gem "html-proofer", "5.2.2"
+  gem "html-proofer", "5.2.3"
 end
